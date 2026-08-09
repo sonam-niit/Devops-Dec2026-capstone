@@ -228,7 +228,7 @@ If you'd like to replicate this project [DevOps Accelerator] on your own AWS acc
 ```bash
 mkdir my-devops-project && cd my-devops-project
 git init
-git clone https://github.com/sonam-niit/Devops-Capstone-Oct-2025.git .
+git clone https://github.com/sonam-niit/Devops-Dec2026-capstone.git .
 ```
 
 ---
@@ -272,7 +272,7 @@ Go to:
 Since Lambda code is already hardcoded in Terraform, zip the contents to deploy manually:
 
 ```bash
-cd backend/lambda/process-uploaded-file
+cd backend/process-uploaded-file
 zip -r lambda.zip .
 
 cd ../generate-presigned-url
@@ -293,13 +293,18 @@ aws s3api create-bucket \
   --bucket devops-accelerator-platform-tf-state \
   --region us-east-1
 
-# Create DynamoDB table for state locking
-aws dynamodb create-table \
-  --table-name devops-accelerator-tf-locker \
-  --attribute-definitions AttributeName=LockID,AttributeType=S \
-  --key-schema AttributeName=LockID,KeyType=HASH \
-  --billing-mode PAY_PER_REQUEST \
-  --region us-east-1
+## change bucket name in command
+
+# for latest TF state locking can be done by using single configuration
+# use_lockfile=true
+
+# Create DynamoDB table for state locking (not required with latest)
+# aws dynamodb create-table \
+#   --table-name devops-accelerator-tf-locker \
+#   --attribute-definitions AttributeName=LockID,AttributeType=S \
+#   --key-schema AttributeName=LockID,KeyType=HASH \
+#   --billing-mode PAY_PER_REQUEST \
+#   --region us-east-1
 ```
 
 ---
